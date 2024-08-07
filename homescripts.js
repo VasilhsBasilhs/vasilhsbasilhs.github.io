@@ -16,12 +16,38 @@ var btns = btnContainer.getElementsByClassName("btn");
 
 // Επαναλάβετε τα κουμπιά και προσθέστε την κλάση "active" στο τρέχον/κλικαρισμένο κουμπί
 for (var i = 0; i < btns.length; i++) {
-    btns[i].addEventListener("click", function() {
-        var current = document.getElementsByClassName("active");
-        current[0].className = current[0].className.replace(" active", "");
-        this.className += " active";
-    });
+  btns[i].addEventListener("click", function() {
+      var current = document.getElementsByClassName("active");
+      current[0].className = current[0].className.replace(" active", "");
+      this.className += " active";
+  });
 }
 
+  //        console.log("Πατήθηκε το κουμπί με κείμενο: " + this.innerText);
+  //alert("Πατήθηκε το κουμπί με κείμενο: " + this.innerText);
+}
+
+function homeClick() {
+  //alert("Home");
+
+  // Βρείτε το <iframe> με το id "myFrame"
+var myFrame = document.getElementById('myFrame');
+
+// Ορίστε το νέο URL της σελίδας που θέλετε να ανοίξετε
+var newPageURL = 'home_page.html';
+
+// Αλλάξτε το src του <iframe> στο νέο URL
+myFrame.src = newPageURL;
+}
+
+function appsClick() {
+    // Βρείτε το <iframe> με το id "myFrame"
+var myFrame = document.getElementById('myFrame');
+
+// Ορίστε το νέο URL της σελίδας που θέλετε να ανοίξετε
+var newPageURL = 'apps_page.html';
+
+// Αλλάξτε το src του <iframe> στο νέο URL
+myFrame.src = newPageURL;
 
 }

@@ -31,3 +31,9 @@
 .topnav .icon {
   display: none;
 }
+
+#myFrame {
+  width: 100vw;
+  height: 100vh;
+  border: none;
+}
