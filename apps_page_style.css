@@ -1,0 +1,26 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+.image-container {
+    width: 30%;
+    text-align: center;
+}
+.image {
+    width: 100px;
+    height: 100px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+.title {
+    font-weight: bold;
+}
+.description {
+    font-size: 14px;
+    color: #777;
+}
