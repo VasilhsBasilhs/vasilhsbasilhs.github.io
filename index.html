@@ -2,19 +2,22 @@
 <html>
 <head>
 <title>Vasilhs Basilhs - Αρχική</title>
+<!-- Responsive Web Design -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
+<script src="homescripts.js"></script>
+
 <!-- Responsive Top Navigation -->
 <!-- Load an icon library to show a hamburger menu (bars) on small screens -->
-<link rel="stylesheet" href="mystyle.css">
+<link rel="stylesheet" href="homestyle.css">
 
-<div class="topnav" id="myTopnav">
-  <a href="#home" class="active">Αρχική</a>
-  <a href="#apps">Εφαρμογές</a>
-  <a href="#contact">Contact</a>
-  <a href="#about">About</a>
+<div class="topnav" id="myTopnav" onclick="myFunction()">
+  <a href="#home" class="btn active">Αρχική</a>
+  <a href="#apps" class="btn">Εφαρμογές</a>
+  <a href="#contact" class="btn">Contact</a>
+  <a href="#about" class="btn">About</a>
   <a href="javascript:void(0);" class="icon" onclick="myFunction()">
     <i class="fa fa-bars"></i>
   </a>
