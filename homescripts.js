@@ -14,12 +14,12 @@ var btnContainer = document.getElementById("myTopnav");
 // Πάρτε όλα τα κουμπιά με την κλάση "btn" μέσα στο στοιχείο
 var btns = btnContainer.getElementsByClassName("btn");
 
-// Επαναλάβετε τα κουμπιά και προσθέστε την κλάση "active" στο τρέχον/κλικαρισμένο κουμπί
+// Προσθέστε την κλάση "active" στο κουμπί που πατήθηκε
 for (var i = 0; i < btns.length; i++) {
   btns[i].addEventListener("click", function() {
-      var current = document.getElementsByClassName("active");
-      current[0].className = current[0].className.replace(" active", "");
-      this.className += " active";
+    var current = document.getElementsByClassName("active");
+    current[0].className = current[0].className.replace(" active", "");
+    this.className += " active";
   });
 }
 
@@ -38,6 +38,9 @@ var newPageURL = 'home_page.html';
 
 // Αλλάξτε το src του <iframe> στο νέο URL
 myFrame.src = newPageURL;
+
+// Αλλάζει τον τίτλο της σελίδας
+document.title = "Vasilhs Basilhs - Αρχική";
 }
 
 function appsClick() {
@@ -49,5 +52,8 @@ var newPageURL = 'apps_page.html';
 
 // Αλλάξτε το src του <iframe> στο νέο URL
 myFrame.src = newPageURL;
+
+// Αλλάζει τον τίτλο της σελίδας
+document.title = "Vasilhs Basilhs - Εφαρμογές";
 
 }
