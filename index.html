@@ -1,0 +1,111 @@
+<!-- FILE: index.html -->
+<!doctype html>
+<html lang="el">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Vasilhs Basilhs Apps</title>
+<meta name="description" content="Οι εφαρμογές του Vasilhs Basilhs — Απεργίες, Γιορτές, Auto Device Shutdown, Bluetooth Car" />
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+<header class="site-header">
+<div class="container header-inner">
+<a class="brand" href="/">Vasilhs Basilhs Apps</a>
+<button id="navToggle" aria-expanded="false" aria-controls="mainNav" class="nav-toggle">☰<span class="sr-only">Άνοιγμα μενού</span></button>
+<nav id="mainNav" class="main-nav" aria-label="Κύρια πλοήγηση">
+<ul>
+<li><a href="/">Αρχική</a></li>
+<li><a href="#apps">Εφαρμογές</a></li>
+<li><a href="about.html">Σχετικά</a></li>
+<li><a href="contact.html">Επικοινωνία</a></li>
+</ul>
+</nav>
+</div>
+</header>
+
+<main>
+<section class="hero">
+<div class="container">
+<h1>Εφαρμογές από τον Vasilhs Basilhs</h1>
+<p>Μικρές, πρακτικές εφαρμογές για Windows και Android — εύκολα, γρήγορα, αξιόπιστα.</p>
+<a class="cta" href="#apps">Δες τις εφαρμογές</a>
+</div>
+</section>
+
+
+<section id="apps" class="container apps-grid" aria-label="Λίστα εφαρμογών">
+
+<!-- App card: Απεργίες -->
+<article class="app-card" tabindex="0">
+<img alt="Απεικόνιση εικονιδίου Απεργίες" src="icons/apergies.jpg" class="app-icon">
+<h2>Απεργίες</h2>
+<p class="muted">Ενημερώσεις και λίστες απεργιών — εύκολα και γρήγορα.</p>
+<div class="card-actions">
+<a class="button" href="apergies.html">Περισσότερα</a>
+<a class="button outline" href="https://www.microsoft.com/store/apps/9NFD7RMVK4QX">Microsoft Store</a>
+</div>
+</article>
+
+<!-- App card: Γιορτές -->
+<article class="app-card" tabindex="0">
+<img alt="Εικονίδιο Γιορτές" src="icons/giortes.png" class="app-icon">
+<h2>Γιορτές</h2>
+<p class="muted">Ημερολόγιο γιορτών και εορτολογίων — για Windows & Android.</p>
+<div class="card-actions">
+<a class="button" href="giortes.html">Περισσότερα</a>
+<a class="button outline" href="https://www.microsoft.com/store/apps/9PGV3RZNGMRR">Microsoft Store</a>
+<a class="button outline" href="https://play.google.com/store/apps/details?id=com.myapp.giortes">Google Play</a>
+</div>
+</article>
+
+
+<!-- App card: Auto Device Shutdown -->
+<article class="app-card" tabindex="0">
+<img alt="Εικονίδιο Auto Device Shutdown" src="icons/auto-shutdown.png" class="app-icon">
+<h2>Auto Device Shutdown</h2>
+<p class="muted">Προγραμματίστε αυτόματο τερματισμό συσκευής στα Windows.</p>
+<div class="card-actions">
+<a class="button" href="auto-shutdown.html">Περισσότερα</a>
+<a class="button outline" href="https://www.microsoft.com/store/apps/9MVS6KKNP8VZ">Microsoft Store</a>
+</div>
+</article>
+
+
+<!-- App card: Bluetooth Car -->
+<article class="app-card" tabindex="0">
+<img alt="Εικονίδιο Bluetooth Car" src="icons/bluetooth-car.png" class="app-icon">
+<h2>Bluetooth Car</h2>
+<p class="muted">Εφαρμογή Android για διαχείριση συνδέσεων Bluetooth στο αυτοκίνητο.</p>
+<div class="card-actions">
+<a class="button" href="bluetooth-car.html">Περισσότερα</a>
+<a class="button outline" href="{PLAY_STORE_URL}">Google Play</a>
+</div>
+</article>
+</section>
+
+<section class="container newsletter">
+<h3>Θες ενημερώσεις;</h3>
+<form id="subscribeForm">
+<label for="email" class="sr-only">Email</label>
+<input id="email" name="email" type="email" placeholder="Το email σου" required>
+<button class="button" type="submit">Εγγραφή</button>
+</form>
+<p class="muted small">(Αποθηκεύουμε μόνο ό,τι χρειάζεται — αυτή η φόρμα είναι δείγμα.)</p>
+</section>
+
+
+</main>
+
+
+<footer class="site-footer">
+<div class="container">
+<p>© <span id="year"></span> Vasilhs Basilhs • <a href="privacy.html">Πολιτική Απορρήτου</a></p>
+</div>
+</footer>
+
+
+<script src="app.js"></script>
+</body>
+</html>
