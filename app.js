@@ -29,3 +29,57 @@ form.innerHTML = '<p>Ευχαριστούμε — θα σε ενημερώνου
 })
 }
 })();
+
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const gridImages = Array.from(document.querySelectorAll('.screenshot-grid img'));
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const closeBtn = document.querySelector('.lightbox .close');
+    const navLeft = document.querySelector('.lightbox .nav-left');
+    const navRight = document.querySelector('.lightbox .nav-right');
+
+    let currentIndex = 0;
+
+    function openLightbox(index) {
+        currentIndex = index;
+        lightboxImg.src = gridImages[index].src;
+        lightbox.classList.remove('hidden');
+    }
+
+    function closeLightbox() {
+        lightbox.classList.add('hidden');
+    }
+
+    function showNext() {
+        currentIndex = (currentIndex + 1) % gridImages.length;
+        lightboxImg.src = gridImages[currentIndex].src;
+    }
+
+    function showPrev() {
+        currentIndex = (currentIndex - 1 + gridImages.length) % gridImages.length;
+        lightboxImg.src = gridImages[currentIndex].src;
+    }
+
+    gridImages.forEach((img, index) => {
+        img.addEventListener('click', () => openLightbox(index));
+    });
+
+    closeBtn.addEventListener('click', closeLightbox);
+    navLeft.addEventListener('click', showPrev);
+    navRight.addEventListener('click', showNext);
+
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (!lightbox.classList.contains('hidden')) {
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowRight') showNext();
+            if (e.key === 'ArrowLeft') showPrev();
+        }
+    });
+
+});
