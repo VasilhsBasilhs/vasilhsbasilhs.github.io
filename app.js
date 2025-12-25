@@ -30,6 +30,7 @@ form.innerHTML = '<p>Ευχαριστούμε — θα σε ενημερώνου
 }
 })();
 
+// Screenshot Media Payer
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -83,3 +84,36 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 });
+
+// Scroll Screenshot Main App Page
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    document.querySelectorAll('.screenshots-wrapper').forEach(wrapper => {
+
+        const grid = wrapper.querySelector('.screenshot-grid');
+        const leftBtn = wrapper.querySelector('.shot-nav.left');
+        const rightBtn = wrapper.querySelector('.shot-nav.right');
+
+        function updateNavVisibility() {
+            const needsScroll = grid.scrollWidth > grid.clientWidth;
+            leftBtn.style.display = needsScroll ? 'block' : 'none';
+            rightBtn.style.display = needsScroll ? 'block' : 'none';
+        }
+
+        leftBtn.addEventListener('click', () => {
+            grid.scrollBy({ left: -grid.clientWidth * 0.8, behavior: 'smooth' });
+        });
+
+        rightBtn.addEventListener('click', () => {
+            grid.scrollBy({ left: grid.clientWidth * 0.8, behavior: 'smooth' });
+        });
+
+        grid.addEventListener('scroll', updateNavVisibility);
+        window.addEventListener('resize', updateNavVisibility);
+
+        updateNavVisibility();
+    });
+
+});
+
