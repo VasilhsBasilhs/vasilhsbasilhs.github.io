@@ -85,35 +85,198 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
+//
+
+
+
 // Scroll Screenshot Main App Page
 
-document.addEventListener("DOMContentLoaded", () => {
+/* ===============================
+   Screenshots Slider Logic
+   - arrows
+   - dots
+   - fade gradients
+================================ */
 
-    document.querySelectorAll('.screenshots-wrapper').forEach(wrapper => {
+document.querySelectorAll('.screenshots').forEach(section => {
 
-        const grid = wrapper.querySelector('.screenshot-grid');
-        const leftBtn = wrapper.querySelector('.shot-nav.left');
-        const rightBtn = wrapper.querySelector('.shot-nav.right');
+    // Βασικά στοιχεία
+    const wrapper = section.querySelector('.screenshots-wrapper');
+    const grid = section.querySelector('.screenshot-grid');
+    const images = Array.from(grid.querySelectorAll('img'));
+    const leftBtn = section.querySelector('.shot-nav.left');
+    const rightBtn = section.querySelector('.shot-nav.right');
+    const dotsContainer = section.querySelector('.screenshot-dots');
 
-        function updateNavVisibility() {
-            const needsScroll = grid.scrollWidth > grid.clientWidth;
-            leftBtn.style.display = needsScroll ? 'block' : 'none';
-            rightBtn.style.display = needsScroll ? 'block' : 'none';
-        }
+    // Flag για να ξέρουμε αν το scroll
+    // γίνεται από κουμπί (βελάκι / dot)
+    // ή από πραγματικό swipe του χρήστη
+    let isProgrammaticScroll = false;
 
-        leftBtn.addEventListener('click', () => {
-            grid.scrollBy({ left: -grid.clientWidth * 0.8, behavior: 'smooth' });
+    let currentIndex = 0;
+
+    /* -----------------------------
+       Δημιουργία dots
+    ------------------------------ */
+    images.forEach((_, index) => {
+        const dot = document.createElement('button');
+        dot.setAttribute('aria-label', `Screenshot ${index + 1}`);
+        if (index === 0) dot.classList.add('active');
+
+        dot.addEventListener('click', () => {
+            scrollToIndex(index);
         });
 
-        rightBtn.addEventListener('click', () => {
-            grid.scrollBy({ left: grid.clientWidth * 0.8, behavior: 'smooth' });
-        });
-
-        grid.addEventListener('scroll', updateNavVisibility);
-        window.addEventListener('resize', updateNavVisibility);
-
-        updateNavVisibility();
+        dotsContainer.appendChild(dot);
     });
 
+    const dots = Array.from(dotsContainer.children);
+
+    /* -----------------------------
+    Scroll σε συγκεκριμένο index
+    (μέσω βελακιών ή dots)
+    ------------------------------ */
+    function scrollToIndex(index) {
+
+        // Κλειδώνουμε προσωρινά
+        // το scroll-based index detection
+        isProgrammaticScroll = true;
+
+        images[index].scrollIntoView({
+            behavior: 'smooth',
+            inline: 'start',
+            block: 'nearest'
+        });
+
+        currentIndex = index;
+        updateUI();
+
+        /*
+        Ξεκλειδώνουμε ΜΕΤΑ το animation.
+        Το 400ms είναι ασφαλές για smooth scroll.
+        */
+        setTimeout(() => {
+            isProgrammaticScroll = false;
+        }, 400);
+    }
+
+
+    /* -----------------------------
+       Ενημέρωση UI:
+       - dots
+       - arrows
+       - fade gradients
+    ------------------------------ */
+    function updateUI() {
+
+        // Ενεργή τελεία
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === currentIndex);
+        });
+
+        // Auto-hide βελάκια
+        leftBtn.style.display =
+            currentIndex === 0 ? 'none' : 'block';
+
+        rightBtn.style.display =
+            currentIndex === images.length - 1 ? 'none' : 'block';
+
+        // Fade gradients
+        wrapper.classList.toggle('fade-left', currentIndex > 0);
+        wrapper.classList.toggle(
+            'fade-right',
+            currentIndex < images.length - 1
+        );
+    }
+
+    /* -----------------------------
+       Click βελάκια
+    ------------------------------ */
+    rightBtn.addEventListener('click', () => {
+        if (currentIndex < images.length - 1) {
+            scrollToIndex(currentIndex + 1);
+        }
+    });
+
+    leftBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            scrollToIndex(currentIndex - 1);
+        }
+    });
+
+    /* -----------------------------
+    Sync dots όταν γίνεται swipe
+    (αγνοείται όταν scroll γίνεται
+        από βελάκια / dots)
+    ------------------------------ */
+    grid.addEventListener('scroll', () => {
+
+        // Αν το scroll είναι "προγραμματικό",
+        // δεν κάνουμε τίποτα
+        if (isProgrammaticScroll) return;
+
+        const scrollLeft = grid.scrollLeft;
+        const maxScrollLeft = grid.scrollWidth - grid.clientWidth;
+
+        let newIndex = currentIndex;
+
+        /* 
+        Αν είμαστε ΤΕΡΜΑ δεξιά,
+        επιλέγουμε ΠΑΝΤΑ το τελευταίο screenshot
+        */
+        if (scrollLeft >= maxScrollLeft - 2) {
+            newIndex = images.length - 1;
+        }
+
+        /* 
+        Αν είμαστε ΤΕΡΜΑ αριστερά
+        */
+        else if (scrollLeft <= 2) {
+            newIndex = 0;
+        }
+
+        /*
+        Ενδιάμεση κατάσταση:
+        βρίσκουμε το screenshot που
+        είναι πιο κοντά στο scrollLeft
+        */
+        else {
+            let minDiff = Infinity;
+
+            images.forEach((img, i) => {
+                const diff = Math.abs(img.offsetLeft - scrollLeft);
+                if (diff < minDiff) {
+                    minDiff = diff;
+                    newIndex = i;
+                }
+            });
+        }
+
+        if (newIndex !== currentIndex) {
+            currentIndex = newIndex;
+            updateUI();
+        }
+    });
+
+    /* -----------------------------
+       Αν χωράνε όλες οι εικόνες
+       κρύβουμε arrows / dots / fade
+    ------------------------------ */
+    function checkOverflow() {
+        const needsScroll = grid.scrollWidth > grid.clientWidth;
+
+        leftBtn.style.display = needsScroll ? leftBtn.style.display : 'none';
+        rightBtn.style.display = needsScroll ? rightBtn.style.display : 'none';
+        dotsContainer.style.display = needsScroll ? 'flex' : 'none';
+
+        wrapper.classList.toggle('fade-left', false);
+        wrapper.classList.toggle('fade-right', needsScroll);
+    }
+
+    window.addEventListener('resize', checkOverflow);
+
+    updateUI();
+    checkOverflow();
 });
+
 

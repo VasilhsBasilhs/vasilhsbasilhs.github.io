@@ -101,6 +101,93 @@ body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans
 /* keyboard focus visibility */
 :focus{outline:3px solid rgba(110,231,183,0.16);outline-offset:3px}
 
+/*=== Fade gradient overlays ===*/
+
+/* Fade gradient overlays */
+.screenshots-wrapper::before,
+.screenshots-wrapper::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 60px;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .25s ease;
+    z-index: 4;
+}
+
+/* αριστερό fade */
+.screenshots-wrapper::before {
+    left: 0;
+    background: linear-gradient(
+        to right,
+        rgba(7,16,35,0.95),
+        rgba(7,16,35,0)
+    );
+}
+
+/* δεξί fade */
+.screenshots-wrapper::after {
+    right: 0;
+    background: linear-gradient(
+        to left,
+        rgba(7,16,35,0.95),
+        rgba(7,16,35,0)
+    );
+}
+
+/* Ενεργοποίηση */
+.screenshots-wrapper.fade-left::before {
+    opacity: 1;
+}
+.screenshots-wrapper.fade-right::after {
+    opacity: 1;
+}
+
+
+/*=== ===*/
+
+/*=== DOTS - Teleies sta Screenshots === */
+
+/* DOTS */
+.screenshot-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.screenshot-dots button {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255,255,255,0.3);
+    cursor: pointer;
+    padding: 0;
+}
+
+/* .screenshot-dots button.active {
+    background: var(--accent);
+    transform: scale(1.2);
+} */
+
+/* ενεργή τελεία */
+.screenshot-dots button.active {
+    background: linear-gradient(
+        180deg,
+        #7dd3fc,  /* πιο φωτεινό μπλε */
+        #60a5fa   /* δένει με accent-2 */
+    );
+    box-shadow: 0 0 0 3px rgba(96,165,250,0.25);
+    transform: scale(1.25);
+}
+
+
+
+/*== END DOTS - Teleies sta Screenshots ===*/
+
 /*=== Screenshots Main Scrool UI ===*/
 
 /* Screenshots horizontal slider */
