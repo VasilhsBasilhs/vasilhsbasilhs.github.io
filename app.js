@@ -259,6 +259,51 @@ document.querySelectorAll('.screenshots').forEach(section => {
     });
 
     /* -----------------------------
+    Περιμένουμε να φορτώσουν
+    ΟΛΕΣ οι εικόνες screenshots
+    ------------------------------ */
+    function waitForImages(callback) {
+
+        let loadedCount = 0;
+        const totalImages = images.length;
+
+        // Αν δεν υπάρχουν εικόνες, προχωράμε
+        if (totalImages === 0) {
+            callback();
+            return;
+        }
+
+        images.forEach(img => {
+
+            // Αν η εικόνα είναι ήδη cached
+            if (img.complete) {
+                loadedCount++;
+            } else {
+                img.addEventListener('load', () => {
+                    loadedCount++;
+                    if (loadedCount === totalImages) {
+                        callback();
+                    }
+                });
+
+                img.addEventListener('error', () => {
+                    // Ακόμα και αν αποτύχει, προχωράμε
+                    loadedCount++;
+                    if (loadedCount === totalImages) {
+                        callback();
+                    }
+                });
+            }
+        });
+
+        // Όλες φορτωμένες από cache
+        if (loadedCount === totalImages) {
+            callback();
+        }
+    }
+
+
+    /* -----------------------------
        Αν χωράνε όλες οι εικόνες
        κρύβουμε arrows / dots / fade
     ------------------------------ */
@@ -275,8 +320,18 @@ document.querySelectorAll('.screenshots').forEach(section => {
 
     window.addEventListener('resize', checkOverflow);
 
-    updateUI();
-    checkOverflow();
+/*     updateUI();
+    checkOverflow(); */
+
+    /* --------------------------------
+    Αρχικοποίηση ΜΟΝΟ αφού
+    φορτώσουν οι εικόνες
+    --------------------------------- */
+    waitForImages(() => {
+        updateUI();
+        checkOverflow();
+    });
+
 });
 
 
